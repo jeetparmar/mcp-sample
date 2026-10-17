@@ -3,7 +3,6 @@ import sys
 
 from mcp.server.mcpserver import MCPServer
 
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
@@ -18,6 +17,30 @@ mcp = MCPServer("My first server")
 def add(a: int, b: int) -> int:
     result = a + b
     logger.info("add called with a=%s, b=%s; returning %s", a, b, result)
+    return result
+
+
+@mcp.tool()
+def subtract(a: int, b: int) -> int:
+    result = a - b
+    logger.info("subtract called with a=%s, b=%s; returning %s", a, b, result)
+    return result
+
+
+@mcp.tool()
+def multiply(a: int, b: int) -> int:
+    result = a * b
+    logger.info("multiply called with a=%s, b=%s; returning %s", a, b, result)
+    return result
+
+
+@mcp.tool()
+def divide(a: int, b: int) -> float:
+    if b == 0:
+        logger.error("divide rejected because b is zero")
+        raise ValueError("can't divide by zero")
+    result = a / b
+    logger.info("divide called with a=%s, b=%s; returning %s", a, b, result)
     return result
 
 
